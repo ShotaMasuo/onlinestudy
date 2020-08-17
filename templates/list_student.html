@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+{% endblock customcss %}
+
+{% block header %}
+
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+生徒用画面です<br>
+ようこそ{{username}}さん<br>
+<div class="day-controller">
+    {% ifnotequal counter 0 %}
+    <a href="{% url 'prevlist' counter %}">
+        <svg class="bi bi-caret-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10 12.796L4.519 8 10 3.204v9.592zm-.659.753l-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
+        </svg>
+    </a>
+    {% endifnotequal %}
+    <p><b>{{newtoday}}</b></p>
+    <a href="{% url 'nextlist' counter %}">
+        <svg class="bi bi-caret-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M6 12.796L11.481 8 6 3.204v9.592zm.659.753l5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+        </svg>
+    </a>
+</div>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">教師</th>
+        <th scope="col">14:00</th>
+        <th scope="col">15:00</th>
+        <th scope="col">16:00</th>
+        <th scope="col">17:00</th>
+        <th scope="col">18:00</th>
+        <th scope="col">19:00</th>
+        <th scope="col">20:00</th>
+        <th scope="col">21:00</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for teacher in teacher_list %}
+      <tr>
+        <th scope="row">{{teacher.last_name}}&nbsp;{{teacher.first_name}}</th>
+        <td align="center">
+          {% for work in teacher.workmodel_set.all %}
+          {% if work.workdate == newtoday and work.worktime == 'c1' and teacher.email in r1 %}
+
+          {% for ri in reserveinfo %}
+            {% if ri.teacher == teacher and ri.studentid == user.id and ri.reservetime == 'c1' %}
+            <span>予約済み</span>
+            {% elif ri.teacher == teacher and ri.studentid != user.id and ri.reservetime == 'c1' %}
+            <span>満席</span>
+            {% endif %}
+          {% endfor %}
+          
+          {% elif work.workdate == newtoday and work.worktime == 'c1' and teacher.email not in r1 %}
+          <a href="{% url 'reserve' teacher.id newtoday work.worktime %}">◯</a>
+          {% endif %}
+          {% endfor %}
+        </td>
+        <td align="center">
+          {% for work in teacher.workmodel_set.all %}
+          {% if work.workdate == newtoday and work.worktime == 'c2' and teacher.email in r2 %}
+
+          {% for ri in reserveinfo %}
+            {% if ri.teacher == teacher and ri.studentid == user.id and ri.reservetime == 'c2' %}
+            <span>予約済み</span>
+            {% elif ri.teacher == teacher and ri.studentid != user.id and ri.reservetime == 'c2' %}
+            <span>満席</span>
+            {% endif %}
+          {% endfor %}
+          
+          {% elif work.workdate == newtoday and work.worktime == 'c2' and teacher.email not in r2 %}
+          <a href="{% url 'reserve' teacher.id newtoday work.worktime %}">◯</a>
+          {% endif %}
+          {% endfor %}
+        </td>
+        <td align="center">
+          {% for work in teacher.workmodel_set.all %}
+          {% if work.workdate == newtoday and work.worktime == 'c3' and teacher.email in r3 %}
+          
+          {% for ri in reserveinfo %}
+            {% if ri.teacher == teacher and ri.studentid == user.id and ri.reservetime == 'c3' %}
+            <span>予約済み</span>
+            {% elif ri.teacher == teacher and ri.studentid != user.id and ri.reservetime == 'c3' %}
+            <span>満席</span>
+            {% endif %}
+          {% endfor %}
+          
+          {% elif work.workdate == newtoday and work.worktime == 'c3' and teacher.email not in r3 %}
+          <a href="{% url 'reserve' teacher.id newtoday work.worktime %}">◯</a>
+          {% endif %}
+          {% endfor %}
+        </td>
+        <td align="center">
+          {% for work in teacher.workmodel_set.all %}
+          {% if work.workdate == newtoday and work.worktime == 'c4' and teacher.email in r4 %}
+
+          {% for ri in reserveinfo %}
+            {% if ri.teacher == teacher and ri.studentid == user.id and ri.reservetime == 'c4' %}
+            <span>予約済み</span>
+            {% elif ri.teacher == teacher and ri.studentid != user.id and ri.reservetime == 'c4' %}
+            <span>満席</span>
+            {% endif %}
+          {% endfor %}
+          
+          {% elif work.workdate == newtoday and work.worktime == 'c4' and teacher.email not in r4 %}
+          <a href="{% url 'reserve' teacher.id newtoday work.worktime %}">◯</a>
+          {% endif %}
+          {% endfor %}
+        </td>
+        <td align="center">
+          {% for work in teacher.workmodel_set.all %}
+          {% if work.workdate == newtoday and work.worktime == 'c5' and teacher.email in r5 %}
+
+          {% for ri in reserveinfo %}
+            {% if ri.teacher == teacher and ri.studentid == user.id and ri.reservetime == 'c5' %}
+            <span>予約済み</span>
+            {% elif ri.teacher == teacher and ri.studentid != user.id and ri.reservetime == 'c5' %}
+            <span>満席</span>
+            {% endif %}
+          {% endfor %}
+          
+          {% elif work.workdate == newtoday and work.worktime == 'c5' and teacher.email not in r5 %}
+          <a href="{% url 'reserve' teacher.id newtoday work.worktime %}">◯</a>
+          {% endif %}
+          {% endfor %}
+        </td>
+        <td align="center">
+          {% for work in teacher.workmodel_set.all %}
+          {% if work.workdate == newtoday and work.worktime == 'c6' and teacher.email in r6 %}
+
+          {% for ri in reserveinfo %}
+            {% if ri.teacher == teacher and ri.studentid == user.id and ri.reservetime == 'c6' %}
+            <span>予約済み</span>
+            {% elif ri.teacher == teacher and ri.studentid != user.id and ri.reservetime == 'c6' %}
+            <span>満席</span>
+            {% endif %}
+          {% endfor %}
+          
+          {% elif work.workdate == newtoday and work.worktime == 'c6' and teacher.email not in r6 %}
+          <a href="{% url 'reserve' teacher.id newtoday work.worktime %}">◯</a>
+          {% endif %}
+          {% endfor %}
+        </td>
+        <td align="center">
+          {% for work in teacher.workmodel_set.all %}
+          {% if work.workdate == newtoday and work.worktime == 'c7' and teacher.email in r7 %}
+
+          {% for ri in reserveinfo %}
+            {% if ri.teacher == teacher and ri.studentid == user.id and ri.reservetime == 'c7' %}
+            <span>予約済み</span>
+            {% elif ri.teacher == teacher and ri.studentid != user.id and ri.reservetime == 'c7' %}
+            <span>満席</span>
+            {% endif %}
+          {% endfor %}
+          
+          {% elif work.workdate == newtoday and work.worktime == 'c7' and teacher.email not in r7 %}
+          <a href="{% url 'reserve' teacher.id newtoday work.worktime %}">◯</a>
+          {% endif %}
+          {% endfor %}
+        </td>
+        <td align="center">
+          {% for work in teacher.workmodel_set.all %}
+          {% if work.workdate == newtoday and work.worktime == 'c8' and teacher.email in r8 %}
+
+          {% for ri in reserveinfo %}
+            {% if ri.teacher == teacher and ri.studentid == user.id and ri.reservetime == 'c7' %}
+            <span>予約済み</span>
+            {% elif ri.teacher == teacher and ri.studentid != user.id and ri.reservetime == 'c7' %}
+            <span>満席</span>
+            {% endif %}
+          {% endfor %}
+          
+          {% elif work.workdate == newtoday and work.worktime == 'c8' and teacher.email not in r8 %}
+          <a href="{% url 'reserve' teacher.id newtoday work.worktime %}">◯</a>
+          {% endif %}
+          {% endfor %}
+      </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

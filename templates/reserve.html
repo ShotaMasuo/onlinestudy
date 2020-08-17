@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+{% endblock customcss %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    予約確認<br>
+    {{username}}さん<br>
+    <table class="reserv-info">
+        {% for t in teacher %}
+        <tr>
+            <th>日時</th>
+            <td>{{newtoday}}&nbsp;{{worktime}}</td>
+        </tr>
+        <tr>
+            <th>教師</th>
+            <td>{{t.last_name}}先生</td>
+        </tr>
+        <form action="{% url 'complete' t.id newtoday worktime %}" method="post">
+            {% csrf_token %}
+            <tr>
+                <th>科目</th>
+                <td>
+                    <select name="subject">
+                        {% for subject in subjects %}
+                        <option value="{{subject}}">{{subject}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>テキスト</th>
+                <td><input type="text" name="textname"></td>
+            </tr>
+            <tr>
+                <th>聞きたい内容</th>
+                <td><textarea name="question"></textarea></td>
+            </tr>
+            <tr>
+                <td><input type="submit"" value="予約"></td>
+            </tr>
+        </form>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}

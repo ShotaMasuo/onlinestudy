@@ -1,0 +1,24 @@
+th{
+    text-align: center;
+}
+.day-controller{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.day-controller p{
+    padding: 0 10px ;
+    margin-bottom: 0;
+}
+
+b{
+    padding: 0 50px;
+}
+.reserv-info{
+    margin-top: 30px;
+}
+.reserv-info th{
+    padding: 5px;
+    padding-right: 20px;
+}
